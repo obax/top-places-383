@@ -19,5 +19,6 @@ final class FoursquareLocation extends Location
         $this->category  = $raw['category'];
         $this->longitude = $raw['longitude'];
         $this->latitude  = $raw['latitude'];
+        $this->provider  = 'Foursquare';
     }
 }

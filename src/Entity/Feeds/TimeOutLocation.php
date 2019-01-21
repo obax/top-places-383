@@ -4,11 +4,6 @@ namespace App\Entity\Feeds;
 
 final class TimeOutLocation extends Location
 {
-    public function getProvider(): string
-    {
-        return 'TimeOut';
-    }
-    
     public function __construct(array $raw)
     {
         $this->address   = $raw['address'];
@@ -20,7 +15,8 @@ final class TimeOutLocation extends Location
         $this->longitude = $raw['longitude'];
         $this->latitude  = $raw['latitude'];
         $this->description  = $raw['description'];
-        $this->price     = $raw['price'];
+        $this->sanitizePrices($raw['price']);
+        $this->provider  = 'TimeOut';
     }
     
 //featured	false

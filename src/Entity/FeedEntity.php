@@ -43,4 +43,22 @@ class FeedEntity
      * @ORM\Column(type="string")
      */
     protected $moreLink;
+    
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $latitude;
+    
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $longitude;
+    
+    /**
+     * @return mixed
+     */
+    public function getUri()
+    {
+        return $this->uri;
+    }
 }

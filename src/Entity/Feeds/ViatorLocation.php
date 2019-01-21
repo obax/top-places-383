@@ -4,11 +4,6 @@ namespace App\Entity\Feeds;
 
 final class ViatorLocation extends Location
 {
-    public function getProvider(): string
-    {
-        return 'Viator';
-    }
-    
     public function __construct(array $raw)
     {
         $this->address   = $raw['address'];
@@ -20,7 +15,8 @@ final class ViatorLocation extends Location
         $this->longitude = $raw['longitude'];
         $this->latitude  = $raw['latitude'];
         $this->description  = $raw['description'];
-        $this->price     = $raw['price'];
+        $this->sanitizePrices($raw['price']);
+        $this->provider  = 'Viator';
     }
 
 //    duration	"1 day"

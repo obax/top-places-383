@@ -8,9 +8,10 @@ class LocationCollection implements JsonSerializable
 {
     public function jsonSerialize()
     {
-       return [];
+       return array_values($this->locations);
     }
     
+    /** @var Location[] */
     protected $locations = [];
     
     public function add(Location $location)
@@ -18,14 +19,39 @@ class LocationCollection implements JsonSerializable
         $this->locations[] = $location;
     }
     
-    public function filter($criteria)
+    public function filterEquals($field, $value)
     {
-        //array_map?
+        if(property_exists(Location::class, $field)){
+            $this->locations = array_filter($this->locations, function (Location $location) use ($field, $value){
+                return strtolower($location->{$field}) === strtolower($value);
+            });
+        }
+    }
+    
+    public function filterGreaterThan($field, $value)
+    {
+        if(property_exists(Location::class, $field)){
+            $this->locations = array_filter($this->locations, function (Location $location) use ($field, $value){
+                if(!empty($location->{$field})) {
+                    return (int)$location->{$field} > (int)$value;
+                }
+            });
+        }
+    }
+    
+    public function filterLesserThan($field, $value)
+    {
+        if(property_exists(Location::class, $field)){
+            $this->locations = array_filter($this->locations, function (Location $location) use ($field, $value){
+                if(!empty($location->{$field})){
+                    return (int)$location->{$field} < (int)$value;
+                }
+            });
+        }
     }
     
     public function sort()
     {
         //usort
     }
-    
 }

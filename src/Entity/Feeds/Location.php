@@ -4,86 +4,44 @@ namespace App\Entity\Feeds;
 
 abstract class Location
 {
-    protected $address;
+    public $address;
     
     /** @var string $image */
-    protected $image;
+    public $image;
     
     /** @var string $name */
-    protected $name;
+    public $name;
     
     /** @var string $rating */
-    protected $rating;
+    public $rating;
     
     /** @var string $link */
-    protected $link;
+    public $link;
     
     /** @var string $category */
-    protected $category;
+    public $category;
     
     /** @var string $price */
-    protected $price;
+    public $price;
     
     /** @var string $longitude */
-    protected $longitude;
+    public $longitude;
     
     /** @var string $latitude */
-    protected $latitude;
+    public $latitude;
     
     /** @var string $latitude */
-    protected $description;
+    public $description;
+    
+    /** @var string $provider */
+    public $provider;
+    
+    public function sanitizePrices($text)
+    {
+        if(preg_match('/[\$\£]([\d,]+(\.[\d]{2})?)/u',$text,$matches)){
+            $this->price =  $matches[1];
+        }
+    }
     
     abstract public function __construct(array $raw);
-    
-    abstract public function getProvider(): string;
-    
-    public function getImage(): string
-    {
-        return $this->image;
-    }
-    
-    public function getName(): string
-    {
-        return $this->name;
-    }
-    
-    public function getAddress(): string
-    {
-        return $this->address;
-    }
-    
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-    
-    public function getPrice(): string
-    {
-        return $this->price;
-    }
-    
-    public function getCategory(): string
-    {
-        return $this->category;
-    }
-    
-    public function getLatitude(): string
-    {
-        return $this->longitude;
-    }
-    
-    public function getLongitude(): string
-    {
-        return $this->latitude;
-    }
-    
-    public function getRating(): int
-    {
-        return $this->rating;
-    }
-    
-    public function getURL(): string
-    {
-        return $this->link;
-    }
 }

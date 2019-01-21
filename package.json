@@ -5,5 +5,13 @@
   "main": "index.js",
   "author": "Olivier Bacs <olivier.bacs@outlook.com>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "repository": "git@github.com:obax/top-places-383.git",
+  "dependencies": {
+    "@symfony/webpack-encore": "^0.22.4",
+    "bulma": "^0.7.2",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
+    "webpack-cleanup-plugin": "^0.5.1"
+  }
 }
