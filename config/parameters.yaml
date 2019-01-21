@@ -1,0 +1,3 @@
+parameters:
+  locale: 'en'
+  hilton_apps_access_token: '%env(HILTON_APPS_ACCESSTOKEN)%'

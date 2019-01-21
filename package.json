@@ -1,0 +1,9 @@
+{
+  "name": "383-project",
+  "version": "1.0.0",
+  "description": "As required for phase 2",
+  "main": "index.js",
+  "author": "Olivier Bacs <olivier.bacs@outlook.com>",
+  "license": "MIT",
+  "private": false
+}
