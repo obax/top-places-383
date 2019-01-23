@@ -59,13 +59,13 @@ class FeedAPIController extends AbstractController
      *     response=200,
      *     description="Gets a combined feed",
      *     @SWG\Schema(
-     *         type="json",
-     *         @SWG\Items(ref=@Model(type=FeedAPIController::class, groups={"full"}))
+     *         type="object",
+     *         @SWG\Items(ref=@Model(type=FeedAPIController::class,groups={"full"}))
      *     )
      * )
      *
      * @SWG\Parameter(
-     *     in="path",
+     *     in="query",
      *     name="city",
      *     type="string",
      *     required=true,
@@ -161,8 +161,10 @@ class FeedAPIController extends AbstractController
         
         $jsonResponse->setMaxAge($dataFreshFor);
         
-        if ($category = $request->query->get('category')) {
-            $collection->filterEquals('category', $category);
+        if ($category = $request->query->get('category', '')) {
+            if($category !== ''){
+                $collection->filterEquals('category', $category);
+            }
         }
         
         if ($provider = $request->query->get('provider')) {
@@ -171,12 +173,14 @@ class FeedAPIController extends AbstractController
         
         if ($minRating = $request->query->get('min_rating', 0)) {
             if($minRating !== 0){
-                $collection->filterGreaterThan('rating', $minRating);
+                $collection->filterGreaterThan('rating', (int)$minRating);
             }
         }
         
         if ($maxPrice = $request->query->get('max_price', 0)) {
-            $collection->filterLesserThan('price', $maxPrice);
+            if($maxPrice !== 0){
+                $collection->filterLesserOrEq('price', (int)$maxPrice);
+            }
         }
         
         return $jsonResponse->setData($collection);

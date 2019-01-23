@@ -21,7 +21,7 @@ class LocationCollection implements JsonSerializable
     
     public function filterEquals($field, $value)
     {
-        if(property_exists(Location::class, $field) && ($value !== '')){
+        if(property_exists(Location::class, $field)){
             $this->locations = array_filter($this->locations, function (Location $location) use ($field, $value){
                 return strtolower($location->{$field}) === strtolower($value);
             });
@@ -39,13 +39,11 @@ class LocationCollection implements JsonSerializable
         }
     }
     
-    public function filterLesserThan($field, $value)
+    public function filterLesserOrEq($field, $value)
     {
         if(property_exists(Location::class, $field)){
             $this->locations = array_filter($this->locations, function (Location $location) use ($field, $value){
-                if(!empty($location->{$field})){
-                    return (int)$location->{$field} < (int)$value;
-                }
+                    return (int)$location->{$field} <= (int)$value;
             });
         }
     }

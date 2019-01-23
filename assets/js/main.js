@@ -4,18 +4,19 @@ let submitButton = document.getElementById('form_submit')
 
 const column = function (location) {
     let column = document.createElement('div')
+    column.classList.add('column')
     column.innerHTML = `
-    <div class="box">
+    <div class="card">
         <header>
             ${location.rating ? `<span class="tag is-warning">${location.rating}</span>` : ""}
-            <span>${location.name}</span> ${location.category ? `<span>- ${location.category}</span>` : ""}
+            <span class="card_name">${location.name}</span> ${location.category ? `<span>- ${location.category}</span>` : ""}
         </header>
         <div class="card-image">
-        <figure class="image is-128x128">
+        <figure class="image">
             <img src="${location.image}" alt="${location.name}">
         </figure>
         </div>
-        ${location.description ? `<div>${location.description}</div>` : ""}
+        ${location.description ? `<div class="card_description">${location.description}</div>` : ""}
 
         ${location.price ? `<span class="tag is-link">$${location.price}</span>` : ""}
                 <a href="${location.link}">More on ${location.provider} ></a>
@@ -34,13 +35,13 @@ const render = (locations, error) => {
     if (locations.length === 0) {
         return console.info("The websites have nothing that matches your search")
     }
+    let row = document.createElement('div')
+    row.classList.add('columns')
     
     locations.map((location, index) => {
-        let row = document.createElement('div')
-        row.classList.add('columns')
         row.appendChild(column(location))
-        results.appendChild(row)
     })
+    results.appendChild(row)
 }
 
 const spinnerStart = (_) => {

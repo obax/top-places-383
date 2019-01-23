@@ -12,8 +12,8 @@ abstract class Location
     /** @var string $name */
     public $name;
     
-    /** @var string $rating */
-    public $rating;
+    /** @var int $rating */
+    public $rating = 5;
     
     /** @var string $link */
     public $link;
@@ -21,8 +21,8 @@ abstract class Location
     /** @var string $category */
     public $category;
     
-    /** @var string $price */
-    public $price;
+    /** @var int $price */
+    public $price = 0;
     
     /** @var string $longitude */
     public $longitude;
