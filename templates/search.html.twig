@@ -1,8 +1,89 @@
 {% extends 'base.html.twig' %}
 {% block title %}Search top places!{% endblock %}
 {% block body %}
-<form action="">
-    <label for="location">Location</label>
-    <input class="input is-primary" type="text" id="location" placeholder="Location">
-</form>
+    <a class="button is-light" href="/api/doc">Documentation</a>
+    <div class="search">
+        <h1>Search here</h1>
+        <form id="form_search" action="/__services/top-places/London" class="bd-callout is-primary">
+
+            <div class="radio-toolbar">
+                <input type="radio" hidden id="provider_blank" name="provider" checked value="">
+                <label class="button" for="provider_blank">ALL</label>
+
+                <input type="radio" hidden id="provider_foursquare" name="provider" value="foursquare">
+                <label class="button" for="provider_foursquare">Foursquare</label>
+
+                <input type="radio" hidden id="provider_viator" name="provider" value="viator">
+                <label class="button" for="provider_viator">Viator</label>
+
+                <input type="radio" hidden id="provider_timeout" name="provider" value="timeout">
+                <label class="button" for="provider_timeout">TimeOut</label>
+            </div>
+
+
+            <label for="categories">Choose your category</label>
+            <input id="categories" list="datalist_categories" type="text">
+            <datalist id="datalist_categories">
+                <option value="park"></option>
+                <option value="museum"></option>
+            </datalist>
+
+            <input type="number">
+
+
+            <div class="radio-toolbar">
+                <h2>Location</h2>
+                <input type="radio" hidden id="location_london" name="location" value="London">
+                <label class="button" for="location_london">London</label>
+                <input type="radio" hidden id="location_new_york" name="location" value="New York, NY">
+                <label class="button" for="location_new_york">New York</label>
+            </div>
+
+            <button id="form_submit" class="button is-primary is-medium">Search</button>
+        </form>
+    </div>
+
+    <div class="columns" id="results"></div>
+
+    <script>
+        let searchForm = document.getElementById('form_search')
+        let results = document.getElementById('results')
+
+        const card = function (location) {
+            let column = document.createElement('div')
+            column.classList.add('column')
+            return column.innerHTML = `
+            <div class="card">
+                <header>${location.name}</header>
+                <div class="card-image">
+                    <img src="${location.image}" alt="${location.name}">
+                </div>
+            </div>
+         `
+        }
+
+        const render = (locations, error) => {
+            if (!error) {
+                locations.forEach(location => {
+                    results.appendChild(card(location))
+                })
+            }
+        }
+
+        searchForm.addEventListener('submit', function (e) {
+            e.preventDefault()
+            let formData = new FormData(e.target)
+            let params = new URLSearchParams(formData).toString();
+            let action = e.target.getAttribute('action');
+            fetch(`${action}?${params}`)
+                .then(data => data.json())
+                .then(json => render(json))
+        })
+
+
+    </script>
+
+
+
+
 {% endblock %}

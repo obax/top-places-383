@@ -21,7 +21,7 @@ class LocationCollection implements JsonSerializable
     
     public function filterEquals($field, $value)
     {
-        if(property_exists(Location::class, $field)){
+        if(property_exists(Location::class, $field) && ($value !== '')){
             $this->locations = array_filter($this->locations, function (Location $location) use ($field, $value){
                 return strtolower($location->{$field}) === strtolower($value);
             });

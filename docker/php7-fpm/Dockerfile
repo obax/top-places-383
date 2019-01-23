@@ -11,7 +11,8 @@ RUN apt-get update && apt-get install --no-install-recommends -qy \
     libcurl4-openssl-dev \
     pkg-config \
     libssl-dev \
-    libzip-dev
+    libzip-dev \
+    zip
 
 # Install Yarn then Nodejs (Only for local or during build)
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
@@ -37,6 +38,7 @@ RUN pecl install zip
 RUN docker-php-ext-install pdo_mysql opcache
 RUN docker-php-ext-configure zip --with-libzip
 
+ADD conf.d/* /usr/local/etc/php/conf.d/
 
 RUN pecl install -o -f redis \
   &&  rm -rf /tmp/pear \

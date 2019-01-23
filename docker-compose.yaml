@@ -11,6 +11,8 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
     - "3310:3306/tcp"
+    volumes:
+      - ./docker/mysql/initdb:/docker-entrypoint-initdb.d
 
   top-places-app:
     container_name: top-places-app

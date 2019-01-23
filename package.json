@@ -13,5 +13,8 @@
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "webpack-cleanup-plugin": "^0.5.1"
+  },
+  "scripts": {
+    "build:dev": "encore dev"
   }
 }

@@ -1,1 +1,26 @@
 @import "~bulma";
+
+
+.search {
+  padding: 15px;
+  background: #3490DC;
+  color: white;
+}
+.button {
+  border-width: 1px;
+  cursor: pointer;
+  justify-content: center;
+  padding-bottom: calc(0.375em - 1px);
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+  padding-top: calc(0.375em - 1px);
+  text-align: center;
+  white-space: nowrap;
+  background: #2872b3;
+  color: white;
+}
+
+
+.radio-toolbar input[type="radio"]:checked+label {
+  background-color: #00d1b2;
+}
