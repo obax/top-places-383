@@ -3,11 +3,16 @@
 
 .search {
   padding: 15px;
-  background: #3490DC;
-  color: white;
+  background-color: #3490DC;
+  color: white !important;
+  background-image: url(https://asia.nikkei.com/bundles/app/images/blocks/asia-map-bg.png);
+  background-repeat: no-repeat;
 }
 .button {
-  border-width: 1px;
+  &:hover {
+    color: white;
+  }
+  border: none;
   cursor: pointer;
   justify-content: center;
   padding-bottom: calc(0.375em - 1px);
@@ -16,11 +21,22 @@
   padding-top: calc(0.375em - 1px);
   text-align: center;
   white-space: nowrap;
-  background: #2872b3;
+  background: none;
   color: white;
 }
 
 
 .radio-toolbar input[type="radio"]:checked+label {
-  background-color: #00d1b2;
+  border: 1px solid white;
+  background: #2872b3;
+}
+
+fieldset{
+  border: 0;
+  padding: 7px 0;
+}
+
+.results {
+  margin-top: 20px;
+  max-width: 1000px;
 }

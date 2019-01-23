@@ -53,9 +53,8 @@ class FeedAPIController extends AbstractController
     
     /**
      *
-     * @param string $city
      * @param Request $request
-     * @Route("/__services/top-places/{city}", name="app.controller.feeds", methods={"GET"})
+     * @Route("/__services/top-places", name="app.controller.feeds", methods={"GET"})
      * @SWG\Response(
      *     response=200,
      *     description="Gets a combined feed",
@@ -108,13 +107,17 @@ class FeedAPIController extends AbstractController
      * @return JsonResponse
      *
      */
-    public function getData($city, Request $request)
+    public function getData(Request $request)
     {
         $responseBody = [];
         $jsonResponse = new JsonResponse($responseBody);
         
         /** @var FeedRepository $cityRepo */
         $cityRepo = $this->em->getRepository(FeedEntity::class);
+        if(!$request->query->has('city')){
+            throw new \InvalidArgumentException('City missing');
+        }
+        $city = $request->query->get('city');
         $feeds = $cityRepo->byCity($city);
         
         $dataFreshFor = self::FIVE_MIN;
@@ -166,11 +169,13 @@ class FeedAPIController extends AbstractController
             $collection->filterEquals('provider', $provider);
         }
         
-        if ($minRating = $request->query->get('min_rating')) {
-            $collection->filterGreaterThan('rating', $minRating);
+        if ($minRating = $request->query->get('min_rating', 0)) {
+            if($minRating !== 0){
+                $collection->filterGreaterThan('rating', $minRating);
+            }
         }
         
-        if ($maxPrice = $request->query->get('max_price')) {
+        if ($maxPrice = $request->query->get('max_price', 0)) {
             $collection->filterLesserThan('price', $maxPrice);
         }
         

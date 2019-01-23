@@ -1,12 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block title %}Search top places!{% endblock %}
 {% block body %}
-    <a class="button is-light" href="/api/doc">Documentation</a>
     <div class="search">
-        <h1>Search here</h1>
-        <form id="form_search" action="/__services/top-places/London" class="bd-callout is-primary">
-
-            <div class="radio-toolbar">
+        <h1 class="title">Top places</h1>
+        <form id="form_search" action="{{ path('app.controller.feeds') }}" class="bd-callout is-primary">
+            <fieldset class="radio-toolbar">
+                <p><label class="subtitle" for="provider">Search these websites:</label></p>
                 <input type="radio" hidden id="provider_blank" name="provider" checked value="">
                 <label class="button" for="provider_blank">ALL</label>
 
@@ -18,72 +17,66 @@
 
                 <input type="radio" hidden id="provider_timeout" name="provider" value="timeout">
                 <label class="button" for="provider_timeout">TimeOut</label>
-            </div>
+            </fieldset>
 
+            <fieldset>
+                <p><label class="subtitle" for="categories">Filter on a category</label></p>
+                <input  class="input" id="categories" list="datalist_categories" type="text">
+                <datalist id="datalist_categories">
+                    <option value="park"></option>
+                    <option value="museum"></option>
+                    <option value="drama"></option>
+                    <option value="pubs"></option>
+                    <option value="history"></option>
+                </datalist>
+            </fieldset>
 
-            <label for="categories">Choose your category</label>
-            <input id="categories" list="datalist_categories" type="text">
-            <datalist id="datalist_categories">
-                <option value="park"></option>
-                <option value="museum"></option>
-            </datalist>
+            <fieldset>
+                <p><label class="subtitle" for="input_max_price">Budget:</label></p>
+                <input id="input_max_price" name="max_price" onchange="result.value = this.value" type="range"
+                       list="datalist_tickmarks" min="0" max="200" value="200" step="10">
+                $<output name="result">200</output> or under
+                <datalist id="datalist_tickmarks">
+                    <option value="0" label="$0">
+                    <option value="10">
+                    <option value="20">
+                    <option value="30">
+                    <option value="40">
+                    <option value="50" label="$50">
+                    <option value="100" label="$100">
+                    <option value="150" label="$150">
+                    <option value="200" label="$200%">
+                </datalist>
+            </fieldset>
 
-            <input type="number">
+            <fieldset>
+                <p><label class="subtitle" for="input_min_rating">Minimum rating:</label></p>
+                <select name="min_rating" id="input_min_rating">
+                    <option value="0" selected>All</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </fieldset>
 
-
-            <div class="radio-toolbar">
-                <h2>Location</h2>
-                <input type="radio" hidden id="location_london" name="location" value="London">
+            <fieldset class="radio-toolbar">
+                <p><label for="city" class="subtitle">Location:</label></p>
+                <input type="radio" hidden id="location_london" name="city" checked value="London">
                 <label class="button" for="location_london">London</label>
-                <input type="radio" hidden id="location_new_york" name="location" value="New York, NY">
+                <input type="radio" hidden id="location_new_york" name="city" value="New York, NY">
                 <label class="button" for="location_new_york">New York</label>
-            </div>
+            </fieldset>
 
             <button id="form_submit" class="button is-primary is-medium">Search</button>
         </form>
     </div>
 
-    <div class="columns" id="results"></div>
+    <div class="results" id="results"></div>
 
-    <script>
-        let searchForm = document.getElementById('form_search')
-        let results = document.getElementById('results')
+    <footer>
+        <a class="button is-light" href="/api/doc">Documentation</a>
 
-        const card = function (location) {
-            let column = document.createElement('div')
-            column.classList.add('column')
-            return column.innerHTML = `
-            <div class="card">
-                <header>${location.name}</header>
-                <div class="card-image">
-                    <img src="${location.image}" alt="${location.name}">
-                </div>
-            </div>
-         `
-        }
-
-        const render = (locations, error) => {
-            if (!error) {
-                locations.forEach(location => {
-                    results.appendChild(card(location))
-                })
-            }
-        }
-
-        searchForm.addEventListener('submit', function (e) {
-            e.preventDefault()
-            let formData = new FormData(e.target)
-            let params = new URLSearchParams(formData).toString();
-            let action = e.target.getAttribute('action');
-            fetch(`${action}?${params}`)
-                .then(data => data.json())
-                .then(json => render(json))
-        })
-
-
-    </script>
-
-
-
-
+    </footer>
 {% endblock %}
