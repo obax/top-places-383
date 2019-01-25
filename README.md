@@ -5,7 +5,6 @@ Using Mocky
 Improvements
 ====
 - Lazy loading of images
-- Auto-complete for categories
 - Aria tags
 - Add a spinner
 - Adding a Makefile for jobs and build
