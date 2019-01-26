@@ -11,10 +11,12 @@
     "@symfony/webpack-encore": "^0.22.4",
     "bulma": "^0.7.2",
     "node-sass": "^4.11.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
     "sass-loader": "^7.1.0",
     "webpack-cleanup-plugin": "^0.5.1"
   },
   "scripts": {
-    "build:dev": "encore dev"
+    "build:dev": "encore dev",
+    "build":   "encore production"
   }
 }

@@ -1,5 +1,6 @@
 const Encore = require('@symfony/webpack-encore');
 const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 Encore
   .enableSingleRuntimeChunk()
