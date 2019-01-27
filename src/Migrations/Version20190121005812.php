@@ -15,7 +15,7 @@ final class Version20190121005812 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE feed_list (id INT AUTO_INCREMENT NOT NULL, city VARCHAR(255) NOT NULL, uri VARCHAR(255) NOT NULL, provider VARCHAR(255) NOT NULL, version INT NOT NULL, more_link VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE feed_list (id INT AUTO_INCREMENT NOT NULL, city VARCHAR(255) NOT NULL, uri VARCHAR(255) NOT NULL, provider VARCHAR(255) NOT NULL, version INT NOT NULL, latitude VARCHAR(255) NOT NULL, longitude VARCHAR(255) NOT NULL, more_link VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
     }
 
     public function down(Schema $schema) : void
