@@ -1,6 +1,8 @@
 const Encore = require('@symfony/webpack-encore');
 const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const WebpackNotifierPlugin = require('webpack-notifier');
+
 
 Encore
   .enableSingleRuntimeChunk()
@@ -25,6 +27,10 @@ Encore
             }
         }
     ));
+
+if(Encore.isDev()){
+    Encore.addPlugin(new WebpackNotifierPlugin())
+}
 
 if (Encore.isProduction()) {
   Encore
