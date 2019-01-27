@@ -18,4 +18,4 @@ help: ## Help dialog
 build: ## Recreates the node_modules, preps CSS and JS files and runs migrations
 	yarn install
 	yarn build
-	@php bin/console doctrine:migrations:migrate -n
+	-php bin/console doctrine:migrations:migrate -n
