@@ -15,7 +15,9 @@ help: ## Help dialog
 		printf "%-30s %s\n" $$help_command $$help_info ; \
 	done
 
-build: ## Recreates the node_modules, preps CSS and JS files and runs migrations
-	yarn install
-	yarn build
+#post-deploy: ## Recreates the node_modules, preps CSS and JS files and runs migrations
+#	yarn install
+#	yarn build
+
+release:
 	-php bin/console doctrine:migrations:migrate -n

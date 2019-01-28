@@ -18,6 +18,7 @@
   },
   "scripts": {
     "build:dev": "encore dev",
-    "build": "encore production"
+    "build": "encore production",
+    "postinstall": "encore production"
   }
 }
