@@ -1,2 +1,2 @@
 web: vendor/bin/heroku-php-nginx -C heroku/nginx.inc.conf
-release: make build
+postdeploy: make build
