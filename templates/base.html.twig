@@ -9,7 +9,7 @@
     <body>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+        <script src="{{ asset("dist/runtime.js") }}"></script>
+        <script src="{{ asset("dist/app.js") }}"></script>
     </body>
-    <script src="{{ asset("dist/runtime.js") }}"></script>
-    <script src="{{ asset("dist/app.js") }}"></script>
 </html>
